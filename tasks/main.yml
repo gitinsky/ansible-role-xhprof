@@ -1,0 +1,11 @@
+- name: clone xhprof
+  git: repo=https://github.com/phacility/xhprof.git dest=/root/xhprof
+
+- name: install php5-dev
+  apt: name=php5-dev state=present
+
+- name: build and install xhprof
+  shell: cd /root/xhprof/extension && phpize5 && ./configure && make && make install
+
+- name: put /etc/php5/mods-available/xhprof.ini
+  template: src=xhprof.ini dest=/etc/php5/mods-available/xhprof.ini
