@@ -3,9 +3,28 @@
 
 - name: install php5-dev
   apt: name=php5-dev state=present
+  when: ansible_os_family == 'Debian'
+
+- name: install php-devel
+  yum: name=php-devel state=present
+  when: ansible_os_family == 'RedHat'
+
+- name: install gcc
+  yum: name=gcc state=present
+  when: ansible_os_family == 'RedHat'
 
 - name: build and install xhprof
   shell: cd /root/xhprof/extension && phpize5 && ./configure && make && make install
+  when: ansible_os_family == 'Debian'
+
+- name: build and install xhprof
+  shell: cd /root/xhprof/extension && phpize && ./configure && make && make install
+  when: ansible_os_family == 'RedHat'
 
 - name: put /etc/php5/mods-available/xhprof.ini
   template: src=xhprof.ini dest=/etc/php5/mods-available/xhprof.ini
+  when: ansible_os_family == 'Debian'
+
+- name: put /etc/php.d/xhprof.ini
+  template: src=xhprof.ini dest=/etc/php.d/xhprof.ini
+  when: ansible_os_family == 'RedHat'
