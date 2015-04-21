@@ -28,3 +28,9 @@
 - name: put /etc/php.d/xhprof.ini
   template: src=xhprof.ini dest=/etc/php.d/xhprof.ini
   when: ansible_os_family == 'RedHat'
+
+- name: clone xhprof.io
+  git: repo=https://github.com/staabm/xhprof.io dest={{ xhprof_wwwroot }}/xhprof.io
+
+- name: put config.inc.php
+  template: src=config.inc.php dest={{ xhprof_wwwroot }}/xhprof.io/xhprof/includes/config.inc.php
