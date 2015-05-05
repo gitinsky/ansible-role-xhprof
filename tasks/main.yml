@@ -13,6 +13,10 @@
   yum: name=gcc state=present
   when: ansible_os_family == 'RedHat'
 
+- name: install php5-curl
+  apt: name=php5-curl state=present
+  when: ansible_os_family == 'Debian'
+
 - name: build and install xhprof
   shell: cd /root/xhprof/extension && phpize5 && ./configure && make && make install
   when: ansible_os_family == 'Debian'
