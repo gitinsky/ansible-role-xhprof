@@ -13,6 +13,10 @@
   yum: name=gcc state=present
   when: ansible_os_family == 'RedHat'
 
+- name: install gcc
+  apt: name=gcc state=present
+  when: ansible_os_family == 'Debian'
+
 - name: install php5-curl
   apt: name=php5-curl state=present
   when: ansible_os_family == 'Debian'
